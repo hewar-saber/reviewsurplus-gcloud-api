@@ -1,0 +1,22 @@
+{
+  "name": "reviewsurplus-gcloud-api",
+  "version": "1.0.0",
+  "description": "Handles the parts of the api that need longer execution time.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hewar-saber/reviewsurplus-gcloud-api.git"
+  },
+  "author": "Hewar Saber",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/hewar-saber/reviewsurplus-gcloud-api/issues"
+  },
+  "homepage": "https://github.com/hewar-saber/reviewsurplus-gcloud-api#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
