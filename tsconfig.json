@@ -1,8 +1,18 @@
 {
+  "ts-node": {
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "commonjs",
+      "target": "es2017",
+      "noImplicitAny": true,
+      "strict": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true
+    }
+  },
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./app",
-    "exclude": ["node_modules"],
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
     /* Projects */
