@@ -8,7 +8,7 @@ import {
 	validateDisplayId,
 	validateEmail,
 	validatePhoneNumber,
-} from "../util/util"
+} from "../../util/util"
 import { Connection } from "mysql2/promise"
 import {
 	addContactToImports,
@@ -19,11 +19,11 @@ import {
 	getUser,
 	setImportExecutionTime,
 	setImportHandled,
-} from "../util/query"
-import connect from "../config/db"
-import { getBuffer, log, saveBuffer } from "../util/googleCloud"
-import { User } from "../types"
-import { successfulImport } from "../util/emails"
+} from "../../util/query"
+import connect from "../../config/db"
+import { getBuffer, log, saveBuffer } from "../../util/googleCloud"
+import { User } from "../../types"
+import { successfulImport } from "../../util/emails"
 
 export async function POST(req: Request, res: Response) {
 	const id = req.params.id
@@ -140,17 +140,15 @@ export async function POST(req: Request, res: Response) {
 		const chunks = []
 
 		for (const row of rows) {
-			chunks.push(row)
+			chunks.push(handleRow(connection!, row))
 			if (chunks.length === chunkSize) {
-				await Promise.all(
-					chunks.map((row) => handleRow(connection!, row))
-				)
+				await Promise.all(chunks)
 				chunks.length = 0
 			}
 		}
 
 		if (chunks.length) {
-			await Promise.all(chunks.map((row) => handleRow(connection!, row)))
+			await Promise.all(chunks)
 		}
 
 		await setImportHandled(connection, importRecord)
@@ -173,7 +171,7 @@ export async function POST(req: Request, res: Response) {
 			successCount,
 			failedCount: errors.length,
 			name: user.company,
-			url: `${process.env.FRONTEND_URL}/imports/${importRecord.displayId}`,
+			url: `${process.env.FRONTEND_URL}/lists/${importRecord.displayId}`,
 		})
 
 		await sendHTMLEmail({

@@ -1,8 +1,8 @@
 import "dotenv/config"
 import express from "express"
 import { middleware } from "./middleware"
-import { POST as importPOST } from "./imports/route"
-
+import { POST as importPOST } from "./api/imports/route"
+import { POST as blastPOST } from "./api/blasts/route"
 const app = express()
 
 app.use(express.json())
@@ -18,6 +18,8 @@ app.get("/public/test", (req, res) => {
 })
 
 app.post("/imports/:id", importPOST)
+
+app.post("/blasts/:id", blastPOST)
 
 const port = process.env.PORT || 3000
 

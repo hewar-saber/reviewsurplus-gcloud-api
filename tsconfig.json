@@ -3,16 +3,18 @@
     "transpileOnly": true,
     "compilerOptions": {
       "module": "commonjs",
-      "target": "es2017",
+      "target": "es2021",
       "noImplicitAny": true,
       "strict": true,
       "esModuleInterop": true,
-      "skipLibCheck": true
+      "skipLibCheck": true,
     }
   },
   "compilerOptions": {
+    "jsx": "react-jsx", 
     "outDir": "./dist",
     "rootDir": "./app",
+
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
     /* Projects */
@@ -24,7 +26,7 @@
     // "disableReferencedProjectLoad": true,             /* Reduce the number of projects loaded automatically by TypeScript. */
 
     /* Language and Environment */
-    "target": "es2017",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "target": "es2021",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     // "lib": [],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment. */
     // "jsx": "preserve",                                /* Specify what JSX code is generated. */
     // "experimentalDecorators": true,                   /* Enable experimental support for legacy experimental decorators. */
@@ -117,6 +119,6 @@
 
     /* Completeness */
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
-    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
-  }
+    "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
+  },
 }

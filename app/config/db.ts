@@ -1,11 +1,6 @@
 import mysql from "mysql2/promise"
 import "dotenv/config"
 
-console.log(process.env.DB_HOST)
-console.log(process.env.DB_USER)
-console.log(process.env.DB_PASSWORD)
-console.log(process.env.DB_NAME)
-
 export default async function connect(): Promise<mysql.Connection> {
 	try {
 		const connection = await mysql.createConnection({
