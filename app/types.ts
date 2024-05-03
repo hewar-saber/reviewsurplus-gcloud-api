@@ -98,6 +98,7 @@ export type Blast = {
 	status: BlastStatus
 	followUpMethod: FollowUpMethod
 	followUpDelayDays: followUpDelayDays | null
+	isTest: boolean
 }
 
 export type FromEmail = {

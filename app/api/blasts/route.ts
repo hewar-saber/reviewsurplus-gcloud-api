@@ -360,22 +360,21 @@ export async function POST(req: Request, res: Response) {
 			}
 		}
 
-		await executeInChunks(
-			tasks.length,
-			chunkSize,
-			async ({ index, addChunk }) => {
-				const task = tasks[index]
-				const handleTask = async () => {
-					await createGoogleCloudTask(task)
-					createdTasks.push(task)
+		const isTest = blast.isTest
+		if (!isTest) {
+			await executeInChunks(
+				tasks.length,
+				chunkSize,
+				async ({ index, addChunk }) => {
+					const task = tasks[index]
+					const handleTask = async () => {
+						await createGoogleCloudTask(task)
+						createdTasks.push(task)
+					}
+
+					addChunk(handleTask())
 				}
-
-				addChunk(handleTask())
-			}
-		)
-
-		if (1) {
-			throw new Error("Test error")
+			)
 		}
 
 		await updateBlastStatus(connection, blast, BlastStatus.InProgress, true)
@@ -384,8 +383,6 @@ export async function POST(req: Request, res: Response) {
 		await tryWithoutException(async () => {
 			await updateBlastExecutionTime(connection!, blast!, start)
 		})
-
-		const end = performance.now()
 
 		return res.json({ message: "Blast started successfuly" }).status(200)
 	} catch (error) {
@@ -408,8 +405,10 @@ async function rollback(
 		await updateBlastStatus(connection, blast, BlastStatus.Failed)
 		await updateBlastExecutionTime(connection, blast, start)
 	}
-
-	await deleteTasks(tasks)
+	const isTest = blast?.isTest
+	if (!isTest) {
+		await deleteTasks(tasks)
+	}
 }
 
 async function deleteTasks(tasks: TaskParams[]) {
